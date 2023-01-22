@@ -11,16 +11,12 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class Member {
+public class Item {
+    @Id @GeneratedValue
+    @Column(name = "ITEM_ID")
+    private long itemId;
 
-    @Id
-    @GeneratedValue
-    @Column(name = "MEMBER_ID")
-    private Long id;
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
-
-    private String orders;
+    private int price;
+    private int stockQuantity;
 }
