@@ -28,4 +28,14 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    // 양방향 관계일 때, 연관관계 메서드 - 관계 주인에 만듬
+    public void setMember(Member member) {
+        // 기존 연관관계 제거
+        if (this.member != null) {
+            this.member.getOrders().remove(this);
+        }
+        this.member = member;
+        member.getOrders().add(this);
+    }
 }
