@@ -20,6 +20,7 @@ public class Order {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    // 이거 때문에 OrdeerItem에도 연관관계 메서드를 추가해야되지 않나?
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
