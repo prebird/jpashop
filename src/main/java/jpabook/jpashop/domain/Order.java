@@ -27,6 +27,10 @@ public class Order {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     // 이거 때문에 OrderItem에도 연관관계 메서드를 추가해야되지 않나?
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -47,6 +51,11 @@ public class Order {
         }
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {
