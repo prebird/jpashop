@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,16 +21,17 @@ public class Order {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    // 이거 때문에 OrdeerItem에도 연관관계 메서드를 추가해야되지 않나?
+    // 이거 때문에 OrderItem에도 연관관계 메서드를 추가해야되지 않나?
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status; // 주문상태 [ORDER, CANCEL]
 
+    //==연관관계 메서드==/
     // 양방향 관계일 때, 연관관계 메서드 - 관계 주인에 만듬
     public void setMember(Member member) {
         // 기존 연관관계 제거
@@ -39,4 +41,42 @@ public class Order {
         this.member = member;
         member.getOrders().add(this);
     }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    //==생성 메서드==//
+    public static Order createOrder(Member member, OrderItem... orderItems) {
+        Order order = new Order();
+        order.setMember(member);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    //== 비즈니스 로직==//
+    public void cancel() {
+        // TODO: 이미 배송된 것은 취소 불가
+        this.setStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    //== 조회 로직==//
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        return orderItems.stream()
+                .mapToInt(OrderItem::getTotalPrice)
+                .sum();
+    }
+
 }
