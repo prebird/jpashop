@@ -2,6 +2,7 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.service.ItemService;
+import jpabook.jpashop.service.SaveItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +26,9 @@ public class ItemController {
 
     @PostMapping("items/new")
     public String create(ItemForm itemForm) {
-        Item item = Item.createItem(itemForm.getId()
-                , itemForm.getName()
-                , itemForm.getPrice()
-                , itemForm.getStockQuantity());
-        itemService.saveItem(item);
+        SaveItemDto saveItemDto = new SaveItemDto(itemForm.getId(), itemForm.getName()
+                , itemForm.getPrice(), itemForm.getStockQuantity());
+        itemService.saveItem(saveItemDto);
         return "redirect:/";
     }
 
@@ -51,9 +50,9 @@ public class ItemController {
 
     @PostMapping("items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") ItemForm itemForm) {
-        Item item = Item.createItem(itemForm.getId(), itemForm.getName()
+        SaveItemDto saveItemDto = new SaveItemDto(itemForm.getId(), itemForm.getName()
                 , itemForm.getPrice(), itemForm.getStockQuantity());
-        itemService.saveItem(item);
+        itemService.saveItem(saveItemDto);
         return "redirect:/items";
     }
 

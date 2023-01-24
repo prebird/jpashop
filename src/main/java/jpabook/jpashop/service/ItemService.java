@@ -18,7 +18,8 @@ public class ItemService {
      * 상품 등록
      */
     @Transactional
-    public void saveItem(Item item) {
+    public void saveItem(SaveItemDto dto) {
+        Item item = Item.createItem(dto.getId(), dto.getName(), dto.getPrice(), dto.getStockQuantity());
         itemRepository.save(item);
     }
 
