@@ -13,7 +13,7 @@ public class Delivery {
     private Long id;
 
     @OneToOne(mappedBy = "delivery")
-    private Order order;
+    private Orders order;
     private String city;
     private String street;
     private String zipcode;

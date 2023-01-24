@@ -2,7 +2,7 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.Orders;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
@@ -32,7 +32,7 @@ class OrderServiceTest {
         Long orderId = orderService.order(member.getId(), item.getId(), 2);
 
         // then
-        Order findOrder = orderRepository.findOne(orderId);
+        Orders findOrder = orderRepository.findOne(orderId);
         assertThat(findOrder.getStatus()).isEqualTo(OrderStatus.ORDER)
                 .withFailMessage("상품 주문시 상태는 STATUS");
         assertThat(findOrder.getOrderItems().size()).isEqualTo(1)
@@ -78,7 +78,7 @@ class OrderServiceTest {
         orderService.cancelOrder(orderId);
 
         // then
-        Order order = orderRepository.findOne(orderId);
+        Orders order = orderRepository.findOne(orderId);
         assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCEL)
                 .withFailMessage("주문 상태는 cancel 여야한다.");
         assertThat(item.getStockQuantity()).isEqualTo(10)

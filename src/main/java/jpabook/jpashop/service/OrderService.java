@@ -2,14 +2,17 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.Orders;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,7 +32,7 @@ public class OrderService {
         OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
 
         // Order 생성
-        Order order = Order.createOrder(member, orderItem);
+        Orders order = Orders.createOrder(member, orderItem);
 
         // 저장
         orderRepository.save(order);
@@ -39,12 +42,12 @@ public class OrderService {
 
     // 주문취소
     public void cancelOrder(Long orderId) {
-        Order order = orderRepository.findOne(orderId);
+        Orders order = orderRepository.findOne(orderId);
         order.cancel();
     }
 
     // 조회
-    public void getOrder() {
-        //orderRepository
+    public List<Orders> findOrder(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
     }
 }

@@ -1,14 +1,10 @@
 package jpabook.jpashop.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static javax.persistence.FetchType.*;
@@ -16,8 +12,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue
     @Column(name = "ORDER_ID")
@@ -64,8 +59,8 @@ public class Order {
     }
 
     //==생성 메서드==//
-    public static Order createOrder(Member member, OrderItem... orderItems) {
-        Order order = new Order();
+    public static Orders createOrder(Member member, OrderItem... orderItems) {
+        Orders order = new Orders();
         order.setMember(member);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
