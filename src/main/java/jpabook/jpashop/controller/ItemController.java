@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
@@ -27,5 +29,12 @@ public class ItemController {
                 , itemForm.getStockQuantity());
         itemService.saveItem(item);
         return "redirect:/";
+    }
+
+    @GetMapping("items")
+    public String list(Model model) {
+        List<Item> items = itemService.findAllItems();
+        model.addAttribute("items", items);
+        return "items/itemList";
     }
 }
