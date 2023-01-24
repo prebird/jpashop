@@ -44,10 +44,7 @@ class OrderServiceTest {
     }
 
     private Item createItem(String itemName, int price, int stockQuantity) {
-        Item item = new Item();
-        item.setName(itemName);
-        item.setPrice(price);
-        item.setStockQuantity(stockQuantity);
+        Item item = Item.createItem(null, itemName, price, stockQuantity);
         em.persist(item);
         return item;
     }

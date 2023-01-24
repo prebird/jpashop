@@ -23,6 +23,18 @@ public class Item {
     private int price;
     private int stockQuantity;
 
+    protected Item() {}
+
+    //==생성 메서드==//
+    public static Item createItem(Long id, String name, int price, int stockQuantity) {
+        Item item = new Item();
+        item.setId(id);
+        item.setName(name);
+        item.setPrice(price);
+        item.setStockQuantity(stockQuantity);
+        return item;
+    }
+
     //==비즈니스로직==//
     /**
      * stock 증가
