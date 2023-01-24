@@ -19,7 +19,12 @@ public class ItemRepository {
         if (item.getId() == null) {
             em.persist(item);
         }
-        em.merge(item); // update 비슷
+        //em.merge(item); // update 비슷
+        // merge 보다 변경감지 사용하기
+        Item findItem = em.find(Item.class, item.getId());  // 조회 후 영속성 상태
+        findItem.setName(item.getName());
+        findItem.setPrice(item.getPrice());
+        findItem.setStockQuantity(item.getStockQuantity());
     }
 
     public Item findOne(Long id){
