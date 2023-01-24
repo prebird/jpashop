@@ -22,9 +22,7 @@ public class ItemRepository {
         //em.merge(item); // update 비슷
         // merge 보다 변경감지 사용하기
         Item findItem = em.find(Item.class, item.getId());  // 조회 후 영속성 상태
-        findItem.setName(item.getName());
-        findItem.setPrice(item.getPrice());
-        findItem.setStockQuantity(item.getStockQuantity());
+        findItem.change(item.getName(), item.getPrice(), item.getStockQuantity()); // 값 수정
     }
 
     public Item findOne(Long id){

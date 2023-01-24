@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.exception.NotEnoughStockException;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@AllArgsConstructor
 public class Item {
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
@@ -27,11 +28,7 @@ public class Item {
 
     //==생성 메서드==//
     public static Item createItem(Long id, String name, int price, int stockQuantity) {
-        Item item = new Item();
-        item.setId(id);
-        item.setName(name);
-        item.setPrice(price);
-        item.setStockQuantity(stockQuantity);
+        Item item = new Item(id, null, name, price, stockQuantity);
         return item;
     }
 
@@ -53,4 +50,14 @@ public class Item {
         }
         this.stockQuantity = restStock;
     }
+
+    /**
+     * 필드 수정을 위한 메서드
+     */
+    public void change(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
 }
