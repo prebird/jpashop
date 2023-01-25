@@ -16,7 +16,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED) // 조인 전략
 @DiscriminatorColumn(name = "DTYPE")    // 구분 컬럼의 컬럼명
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item extends BaseEntity {
     @Id @GeneratedValue
@@ -30,6 +29,14 @@ public class Item extends BaseEntity {
     private int price;
     private int stockQuantity;
 
+    // 생성자
+    public Item(Long id, List<Category> category ,String name, int price, int stockQuantity) {
+        this.id = id;
+        this.category = category;
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
     //==생성 메서드==//
     public static Item createItem(Long id, String name, int price, int stockQuantity) {
         Item item = new Item(id, null, name, price, stockQuantity);

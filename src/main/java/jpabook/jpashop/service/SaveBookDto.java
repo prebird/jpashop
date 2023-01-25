@@ -1,7 +1,9 @@
 package jpabook.jpashop.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 public class SaveBookDto extends SaveItemDto {
 
     // Setter를 만들지 않기 위해서 + 기본생성자를 만들지 않기 위해서
