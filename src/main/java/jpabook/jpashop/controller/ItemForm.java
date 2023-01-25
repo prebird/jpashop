@@ -1,6 +1,5 @@
 package jpabook.jpashop.controller;
 
-import jpabook.jpashop.domain.Item;
 import lombok.*;
 
 @Getter

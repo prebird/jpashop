@@ -1,18 +1,24 @@
-package jpabook.jpashop.domain;
+package jpabook.jpashop.domain.item;
 
+import jpabook.jpashop.domain.BaseEntity;
+import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.exception.NotEnoughStockException;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) // 조인 전략
+@DiscriminatorColumn(name = "DTYPE")    // 구분 컬럼의 컬럼명
 @Getter
 @AllArgsConstructor
-public class Item {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Item extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
@@ -23,8 +29,6 @@ public class Item {
     private String name;
     private int price;
     private int stockQuantity;
-
-    protected Item() {}
 
     //==생성 메서드==//
     public static Item createItem(Long id, String name, int price, int stockQuantity) {

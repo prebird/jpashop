@@ -1,6 +1,6 @@
 package jpabook.jpashop.controller;
 
-import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.service.ItemService;
 import jpabook.jpashop.service.SaveItemDto;
 import lombok.RequiredArgsConstructor;

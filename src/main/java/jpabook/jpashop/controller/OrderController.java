@@ -1,8 +1,7 @@
 package jpabook.jpashop.controller;
 
-import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.domain.Orders;
 import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.ItemService;
@@ -53,5 +52,4 @@ public class OrderController {
         orderService.cancelOrder(orderId);
         return "redirect:/orders";
     }
-
 }

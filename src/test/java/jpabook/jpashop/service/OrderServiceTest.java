@@ -1,6 +1,6 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Orders;
 import jpabook.jpashop.domain.OrderStatus;
