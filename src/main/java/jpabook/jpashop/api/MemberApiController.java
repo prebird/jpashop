@@ -1,5 +1,7 @@
 package jpabook.jpashop.api;
 
+import jpabook.jpashop.api.dto.member.CreateMemberRequest;
+import jpabook.jpashop.api.dto.member.CreateMemberResponse;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
 import lombok.Data;
@@ -21,19 +23,6 @@ public class MemberApiController {
         Long joinedId = memberService.join(member);
 
         return new CreateMemberResponse(joinedId);
-    }
-
-    @Data
-    static class CreateMemberResponse {
-        private Long id;
-        public CreateMemberResponse(Long id) {
-            this.id = id;
-        }
-    }
-
-    @Data
-    static class CreateMemberRequest {
-        private String name;
     }
 
 
