@@ -34,6 +34,13 @@ public class MemberService {
         }
     }
 
+    @Transactional
+    public Long update(Long id, String name) {
+        Member findMember = memberRepository.findOne(id);
+        findMember.setName(name);
+        return id;
+    }
+
     /**
      * 회원 전체 조회
      */
