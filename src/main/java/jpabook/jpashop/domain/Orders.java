@@ -60,7 +60,19 @@ public class Orders {
     }
 
     //==생성 메서드==//
-    public static Orders createOrder(Member member, OrderItem... orderItems) {
+    public static Orders createOrder(Member member, Delivery delivery ,OrderItem... orderItems) {
+        Orders order = new Orders();
+        order.setMember(member);
+        order.delivery = delivery;
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public static Orders createOrder(Member member ,OrderItem... orderItems) {
         Orders order = new Orders();
         order.setMember(member);
         for (OrderItem orderItem : orderItems) {

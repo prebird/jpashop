@@ -3,10 +3,7 @@ package jpabook.jpashop.domain.item;
 import jpabook.jpashop.domain.BaseEntity;
 import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.exception.NotEnoughStockException;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,9 +34,20 @@ public class Item extends BaseEntity {
         this.price = price;
         this.stockQuantity = stockQuantity;
     }
+
+    public Item(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
     //==생성 메서드==//
     public static Item createItem(Long id, String name, int price, int stockQuantity) {
         Item item = new Item(id, null, name, price, stockQuantity);
+        return item;
+    }
+
+    public static Item createItem(String name, int price, int stockQuantity) {
+        Item item = new Item(name, price, stockQuantity);
         return item;
     }
 
