@@ -18,6 +18,6 @@ public class Delivery {
     private String street;
     private String zipcode;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)    // ORDINAL 절대 쓰면 안되고 STRING으로 해야함
     private DeliveryStatus deliveryStatus;
 }
