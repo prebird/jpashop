@@ -22,11 +22,12 @@ public class Orders {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) // Order persist 할때 같이 persist 됨
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 
     // 이거 때문에 OrderItem에도 연관관계 메서드를 추가해야되지 않나?
+    // 연관관계 주인인 OrderItem에서 수정할 일은 없어서 그런가?
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
