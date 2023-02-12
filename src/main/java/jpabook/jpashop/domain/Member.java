@@ -17,11 +17,9 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
     private String name;
-    
-    // TODO : Address 객체로 분리하기
-    private String city;
-    private String street;
-    private String zipcode;
+
+    @Embedded
+    private Address address;
 
     @OneToMany
     private List<Orders> orders = new ArrayList<>();
