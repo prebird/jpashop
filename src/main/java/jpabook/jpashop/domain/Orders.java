@@ -29,7 +29,7 @@ public class Orders {
     // 이거 때문에 OrderItem에도 연관관계 메서드를 추가해야되지 않나?
     // 연관관계 주인인 OrderItem에서 수정할 일은 없어서 그런가?
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    private final List<OrderItem> orderItems = new ArrayList<>();
 
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDate;

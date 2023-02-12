@@ -34,8 +34,8 @@ public class initDB {
                     .build();
             em.persist(member);
 
-            Book book1 = (Book)Book.createItem("JPA BOOK", 10000, 10);
-            Book book2 = (Book)Book.createItem("JPA BOOK2", 20000, 10);
+            Book book1 = Book.createItem("JPA BOOK", 10000, 10);
+            Book book2 = Book.createItem("JPA BOOK2", 20000, 10);
             em.persist(book1);
             em.persist(book2);
 

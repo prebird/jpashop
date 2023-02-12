@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @Builder
+@AllArgsConstructor
 public class Member {
 
     @Id
@@ -26,7 +28,7 @@ public class Member {
     // null exception 방지
     // 하이버네이트 컬렉션으로 변경되기 때문에 조회 후 변경하면 안됨
     @OneToMany
-    private List<Orders> orders = new ArrayList<>();
+    private final List<Orders> orders = new ArrayList<>(); // 빌더 null ->  final 추가
 
     public Member() {}
     public Member(String name) {

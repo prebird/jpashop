@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Setter;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @Builder
+@AllArgsConstructor
 public class Delivery {
     @Id @GeneratedValue
     @Column(name = "DELIVERY_ID")

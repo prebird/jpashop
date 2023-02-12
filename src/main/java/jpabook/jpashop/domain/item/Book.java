@@ -25,4 +25,12 @@ public class Book extends Item {
         this.author = author;
         this.isbn = isbn;
     }
+
+    public Book (String name, int price, int stockQuantity) {
+        super(name, price, stockQuantity);
+    }
+
+    public static Book createItem(String name, int price, int stockQuantity) {
+        return new Book(name, price, stockQuantity);
+    }
 }
