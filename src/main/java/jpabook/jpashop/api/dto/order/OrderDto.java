@@ -13,19 +13,19 @@ import java.util.stream.Collectors;
 @Getter
 public class OrderDto {
     private Long id;
-    private Member member;
-    private Delivery delivery;
-    private List<OrderItemsDto> orderItems = new ArrayList<>(); // OrderItemsDto로 바꾼다.
+    private String memberName;  // 양방향 연관관계 -> 무한루프 -> 이름만 출력
+    private Address address;  // 양방향 연관관계 -> 무한루프 -> 주소만 출력
+    //private List<OrderItemsDto> orderItems = new ArrayList<>(); //
     private LocalDateTime orderDate;
     private OrderStatus status;
 
     public OrderDto(Orders orders) {
         this.id = orders.getId();
-        this.member = orders.getMember();
-        this.delivery = orders.getDelivery();
-        this.orderItems = orders.getOrderItems().stream()
-                .map(x -> new OrderItemsDto(x))
-                .collect(Collectors.toList());
+        this.memberName = orders.getMember().getName();
+        this.address = orders.getDelivery().getAddress();
+        //this.orderItems = orders.getOrderItems().stream()
+        //        .map(x -> new OrderItemsDto(x))
+        //        .collect(Collectors.toList());
         this.orderDate = orders.getOrderDate();
         this.status = orders.getStatus();
     }
