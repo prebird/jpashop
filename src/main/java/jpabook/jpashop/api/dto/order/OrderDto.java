@@ -21,8 +21,8 @@ public class OrderDto {
 
     public OrderDto(Orders orders) {
         this.id = orders.getId();
-        this.memberName = orders.getMember().getName();
-        this.address = orders.getDelivery().getAddress();
+        this.memberName = orders.getMember().getName();     // lazy loading 쿼리 전송
+        this.address = orders.getDelivery().getAddress();   // lazy loading 쿼리 전송
         //this.orderItems = orders.getOrderItems().stream()
         //        .map(x -> new OrderItemsDto(x))
         //        .collect(Collectors.toList());
