@@ -1,7 +1,7 @@
 package jpabook.jpashop.api;
 
-import jpabook.jpashop.api.dto.member.MemberDto;
 import jpabook.jpashop.api.dto.order.OrderDto;
+import jpabook.jpashop.api.dto.order.OrderDtoV2;
 import jpabook.jpashop.domain.Orders;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
@@ -30,6 +30,7 @@ public class OrderApiController {
         return new Result(orderDtos);
     }
 
+    // OrderDto로 감싸서 반환
     @GetMapping("/api/v2/orders")
     public Result ordersV2() {
         OrderSearch orderSearch = new OrderSearch();
@@ -42,5 +43,17 @@ public class OrderApiController {
     }
 
     //TODO: dto 직접 반환 Controller
+
+    // OrderItems 포함(OrderItemsDto)
+    @GetMapping("/api/v3/orders")
+    public Result ordersV3() {
+        OrderSearch orderSearch = new OrderSearch();
+        List<Orders> orders = orderRepository.findAllByString(orderSearch);
+        List<OrderDtoV2> orderDtos = orders.stream()
+                .map(x -> new OrderDtoV2(x))
+                .collect(Collectors.toList());
+
+        return new Result(orderDtos);
+    }
 
 }
