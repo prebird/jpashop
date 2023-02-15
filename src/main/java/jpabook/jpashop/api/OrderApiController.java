@@ -56,4 +56,15 @@ public class OrderApiController {
         return new Result(orderDtos);
     }
 
+    @GetMapping("/api/v4/orders")
+    public Result ordersV4() {
+        OrderSearch orderSearch = new OrderSearch();
+        List<Orders> orders = orderRepository.findAllByString(orderSearch);
+        List<OrderDtoV2> orderDtos = orders.stream()
+                .map(x -> new OrderDtoV2(x))
+                .collect(Collectors.toList());
+
+        return new Result(orderDtos);
+    }
+
 }
