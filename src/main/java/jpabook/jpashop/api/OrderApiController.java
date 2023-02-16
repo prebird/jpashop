@@ -56,10 +56,10 @@ public class OrderApiController {
         return new Result(orderDtos);
     }
 
+    // fetch join + distinct
     @GetMapping("/api/v4/orders")
     public Result ordersV4() {
-        OrderSearch orderSearch = new OrderSearch();
-        List<Orders> orders = orderRepository.findAllByString(orderSearch);
+        List<Orders> orders = orderRepository.findOrdersWithFetchItem();
         List<OrderDtoV2> orderDtos = orders.stream()
                 .map(x -> new OrderDtoV2(x))
                 .collect(Collectors.toList());
