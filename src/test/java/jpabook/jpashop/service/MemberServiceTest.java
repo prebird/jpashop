@@ -1,6 +1,7 @@
 package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,8 @@ import static org.assertj.core.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     public void 회원가입() throws Exception {
@@ -26,7 +28,7 @@ class MemberServiceTest {
         Long savedId = memberService.join(member);
 
         // then
-        assertThat(member).isEqualTo(memberRepository.findOne(savedId));
+        assertThat(member).isEqualTo(memberRepository.findById(savedId).get());
     }
 
     @Test

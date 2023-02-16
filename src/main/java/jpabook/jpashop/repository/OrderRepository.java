@@ -1,7 +1,8 @@
 package jpabook.jpashop.repository;
 
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Orders;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import jpabook.jpashop.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -49,6 +50,34 @@ public class OrderRepository {
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Orders> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
         return query.getResultList();
+    }
+
+    public List<Orders> findAll(OrderSearch orderSearch) {
+        QOrders orders = QOrders.orders;    // static import 가능
+        QMember member = QMember.member;
+        JPAQueryFactory query = new JPAQueryFactory(em);
+
+        return query
+                .select(orders)
+                .from(orders)
+                .join(orders.member, member)
+                .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch.getMemberName()))
+                .limit(1000)
+                .fetch();
+    }
+
+    private BooleanExpression statusEq(OrderStatus orderStatus) {
+        if (orderStatus == null) {
+            return null;
+        }
+        return QOrders.orders.status.eq(orderStatus);
+    }
+
+    private BooleanExpression nameLike(String name) {
+        if (!StringUtils.hasText(name)) {
+            return null;
+        }
+        return QMember.member.name.like(name);
     }
 
     public List<Orders> findOrdersWithFetch() {
