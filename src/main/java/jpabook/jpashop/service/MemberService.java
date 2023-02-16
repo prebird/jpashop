@@ -22,7 +22,7 @@ public class MemberService {
     @Transactional // 수정가능
     public Long join(Member member) {
         validateDuplicateMember(member); // 중복 회원 검증
-        return memberRepository.save(member);
+        return memberRepository.save(member).getId();
     }
 
     // 멀티 스레드 환경에서 동시에 가입시 통과될 수 있다.
@@ -36,7 +36,7 @@ public class MemberService {
 
     @Transactional
     public Long update(Long id, String name) {
-        Member findMember = memberRepository.findOne(id);
+        Member findMember = memberRepository.findById(id).get();
         findMember.setName(name);
         return id;
     }
@@ -49,6 +49,6 @@ public class MemberService {
     }
 
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 }

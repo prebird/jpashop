@@ -34,7 +34,7 @@ public class OrderApiController {
     @GetMapping("/api/v2/orders")
     public Result ordersV2() {
         OrderSearch orderSearch = new OrderSearch();
-        List<Orders> orders = orderRepository.findOrdersWithfetch();
+        List<Orders> orders = orderRepository.findOrdersWithFetch();
         List<OrderDto> orderDtos = orders.stream()
                 .map(x -> new OrderDto(x))
                 .collect(Collectors.toList());
@@ -61,6 +61,16 @@ public class OrderApiController {
     public Result ordersV4() {
         List<Orders> orders = orderRepository.findOrdersWithFetchItem();
         List<OrderDtoV2> orderDtos = orders.stream()
+                .map(x -> new OrderDtoV2(x))
+                .collect(Collectors.toList());
+
+        return new Result(orderDtos);
+    }
+
+    @GetMapping("/api/v5/orders")
+    public Result ordersV5() {
+        List<Orders> orders = orderRepository.findOrdersWithFetch();    // XtoOne 관계 데이터 fetch
+        List<OrderDtoV2> orderDtos = orders.stream()    // XtoMany 데이터 배치설정 주고 한번에
                 .map(x -> new OrderDtoV2(x))
                 .collect(Collectors.toList());
 

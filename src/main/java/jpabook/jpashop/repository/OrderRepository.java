@@ -51,11 +51,11 @@ public class OrderRepository {
         return query.getResultList();
     }
 
-    public List<Orders> findOrdersWithfetch() {
+    public List<Orders> findOrdersWithFetch() {
         return em.createQuery(
                 "select o from Orders o " +
                         " join fetch o.member m" +
-                        " join fetch o.delivery d")
+                        " join fetch o.delivery d", Orders.class)
                 .getResultList();
     }
 
@@ -66,7 +66,8 @@ public class OrderRepository {
                                 " join fetch o.member m" +
                                 " join fetch o.delivery d" +
                                 " join fetch o.orderItems oi" +
-                                " join fetch oi.item i")
+                                " join fetch oi.item i", Orders.class)
                 .getResultList();
     }
+
 }
